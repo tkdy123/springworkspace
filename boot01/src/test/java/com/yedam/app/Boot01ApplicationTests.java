@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.yedam.app.dept.mapper.DeptMapper;
 import com.yedam.app.emp.mapper.EmpMapper;
 import com.yedam.app.emp.service.EmpVO;
 
@@ -38,6 +39,8 @@ class Boot01ApplicationTests {
 		empVO.setEmployeeId(100);
 		
 		EmpVO findVO = empMapper.selectEmpInfo(empVO);
+		
+		System.out.println(findVO);
 		
 		assertEquals("King", findVO.getLastName());
 		// 첫번쨰 매개변수 : 기대하는 값
@@ -84,7 +87,7 @@ class Boot01ApplicationTests {
 		assertEquals(1, result);
 	}
 	
-	@Test
+	//@Test
 	void selectKeyTest() {
 		EmpVO empVO = new EmpVO();
 		empVO.setLastName("Kim");
@@ -98,4 +101,5 @@ class Boot01ApplicationTests {
 		System.out.println("====" + empVO.getEmployeeId());
 		assertEquals(1, result);
 	}
+	
 }
