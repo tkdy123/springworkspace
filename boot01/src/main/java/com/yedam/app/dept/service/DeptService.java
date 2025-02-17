@@ -5,7 +5,7 @@ import java.util.Map;
 
 
 public interface DeptService {
-	// 전체조회
+	    // 전체조회
 		public List<DeptVO> findAllDept();
 		
 		// 단건조회

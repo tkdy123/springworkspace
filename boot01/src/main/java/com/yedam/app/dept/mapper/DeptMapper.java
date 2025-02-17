@@ -14,5 +14,5 @@ public interface DeptMapper {
 	// 수정
 	public int updateDeptInfo(DeptVO deptVO);	
 	// 삭제
-	public int deleteDeptInfo(int deptVO);
+	public int deleteDeptInfo(int departmentId);
 }

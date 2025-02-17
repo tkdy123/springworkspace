@@ -55,6 +55,6 @@
     <!-- 삭제 -->
     <delete id="deleteDeptInfo" parameterType="int">
           DELETE FROM departments
-          WHERE  department_id = #{deptVO}
+          WHERE  department_id = #{departmentId}
     </delete>
 </mapper>
