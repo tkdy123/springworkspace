@@ -35,14 +35,19 @@ public class EmpController {
 		// 2) Service
 		   List<EmpVO> list = empService.findAllEmp();
 		// Service의 결과를 View에 전달
-		   model.addAttribute("emp", list);
+		   model.addAttribute("emps", list);  // (키, 값)
 		// 3) View
-		return "emp/list";
+		return "emp/list"; // classpath:templates/emp/list.html
+		// prifix , classpath:/templates/
+	    // suffix , .html
+		
+		// prifix + return + suffix
+		// classpath:/templates/ + emp/list + .html
 	}
 	
 	// 단건조회 : GET + 전달받을 데이터 => QueryString
 	// 1) URL + METHOD
-	@GetMapping("empInfo")
+	@GetMapping("empInfo") // empInfo?employeeId=100
 	public String empInfo(EmpVO empVO, Model model) {
 		// 2) Service
 		   EmpVO findVO = empService.findEmpInfo(empVO);
@@ -50,6 +55,11 @@ public class EmpController {
 		   model.addAttribute("emp", findVO);
 		// 3) View		
 		   return "emp/info";
+		   // prifix , classpath:/templates/
+		   // suffix , .html
+			
+		   // prifix + return + suffix
+		   // classpath:/templates/ + emp/info + .html
 	}
 	
 	// 등록 - 페이지 : GET
