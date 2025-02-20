@@ -10,10 +10,13 @@ public interface BoardMapper {
 	public List<BoardVO> selectAllList();
 	
 	// 단건조회
+	public BoardVO selectInfo(BoardVO boardVO);
 	
 	// 등록
+	public int insertInfo(BoardVO boardVO);
 	
 	// 수정
+	
 	
 	// 삭제
 	

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<th:block xmlns:th="https://www.thymeleaf.org/"
+          th:fragment="HeaderFrag">
+	<div class="container">
+		<ul class="nav nav-underline">
+			<li class="nav-item">
+			   <a class="nav-link active" aria-current="page" href="#">Home</a>
+			</li>
+			<li class="nav-item">
+			   <a class="nav-link" th:href="@{/boardList}">게시판 전체 조회</a>
+			</li>
+			<li class="nav-item">
+			   <a class="nav-link" href="#">게시글 등록</a>
+			</li>
+			<li class="nav-item">
+               <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+		</ul>
+	</div>
+</th:block>
