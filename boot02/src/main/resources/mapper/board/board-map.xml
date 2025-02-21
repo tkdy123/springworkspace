@@ -29,11 +29,27 @@
 	</select>
 	<!-- 등록 -->
 	<insert id="insertInfo" parameterType="BoardVO">
-		<selectKey keyProperty=""
-		           resultType=""
+		<selectKey keyProperty="bno"
+		           resultType="Integer"
 		           order="BEFORE">
 			SELECT NVL(MAX(bno), 1) + 1
 			FROM   board
 		</selectKey>
+		INSERT INTO board(
+		                  bno
+		                  ,title
+		                  ,contents
+		                  ,writer 
+		                  ,regdate
+		                  ,image
+		                  )
+        VALUES(
+				#{bno}
+				,#{title}
+				,#{contents}
+				,#{writer}
+				,#{regdate}
+				,#{image}            
+              )
 	</insert>
 </mapper>
