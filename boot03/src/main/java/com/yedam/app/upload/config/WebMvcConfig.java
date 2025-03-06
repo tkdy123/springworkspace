@@ -14,8 +14,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/images/**") // URL
-				.addResourceLocations("file:///" + uploadPath,"");  // 
+				.addResourceLocations("file:///" + uploadPath, "file:///C:/temp/");  // 
 				// => 하나의 URL에 여러 경로를 매핑하는 게 가능함
+		        // file:///D:/upload/
 	}
 
 	
