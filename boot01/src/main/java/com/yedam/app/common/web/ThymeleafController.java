@@ -32,6 +32,5 @@ public class ThymeleafController {
 		// prifix , classpath:/templates/
 		// suffix , .html
 		// classpath:/templates/test.html
-		// /boot01/src/main/resources/templates/test.html
 	}
 }

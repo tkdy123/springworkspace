@@ -7,86 +7,82 @@
 </head>
 <body>
   <script>
-    Alluserlist();
-
     // 전체조회
-    function Alluserlist(){
-      fetch('http://localhost:8099/yd/emps')
-      .then(res => res.json())
-      .then(result =>{
-        console.log(' ===== 전체조회');
-        console.log(result);
-      })
-      .catch(err => console.log(err))
-    }
+    fetch('http://localhost:8099/yd/emps')
+    .then(res => res.json())
+    .then(result => {
+      console.log('===== 전체조회');
+      console.log(result);
+    })
+    .catch(err => console.log(err));
 
     // 단건조회
-    function Finduserinfo(eid){
-      fetch(`http://localhost:8099/yd/emps/${eid}`)
-      .then(res => res.json())
-      .then(result => {
-        console.log(' ===== 단건조회');
-        console.log(result)
-      })
-      .catch(err => console.log(err))
-    }
-    // 등록
-    function Insertuser(){
-      let insertData = {
-        'lastName' : 'Hong',
-        'email' : 'kjh1234@google.com',
-        'jobId' : 'IT_PROG',
-      }
-      fetch('http://localhost:8099/yd/emps',{
-        method : 'post',
-        // @RequestBody
-        headers : {
-          'Content-type' : 'application/json',
-        },
-        body : JSON.stringify(insertData),
-      })
-      .then(res => res.json())
-      .then(result => {
-        console.log(' ===== 등록');
-        console.log(result);
-      })
-      .catch(err => console.log(err))
-    }
-    // 수정
-    function Updateuser(eid){
-      let updateData = {
-        'lastName': "park",
-        'hireDate': "2025-02-22T05:26:28.000+00:00",
-        'jobId': "IT_PROG",
-      }
-      fetch(`http://localhost:8099/yd/emps/${eid}`,{
-        method : 'put',
-        // @RequestBody
-        headers : {
-          'Content-type' : 'application/json',
-        },
-        body : JSON.stringify(updateData),
-      })
-      .then(res => res.json())
-      .then(result => {
-        console.log(' ===== 수정');
-        console.log(result);
-      })
-      .catch(err => console.log(err))
-    }
+    fetch('http://localhost:8099/yd/emps/100')
+    .then(res => res.json())
+    .then(result => {
+      console.log('===== 단건조회');
+      console.log(result);
+    })
+    .catch(err => console.log(err));
 
-    // 삭제
-    function Deleteuser(eid){
-      fetch(`http://localhost:8099/yd/emps/${eid}`,{
-        method : 'delete',
-      })
-      .then(res => res.json())
-      .then(result => {
-        console.log(' ===== 단건삭제');
-        console.log(result)
-      })
-      .catch(err => console.log(err))
+    // 등록
+    let insertDta = {
+      'lastName' :  'Hong',
+      'email' : 'h@naver.com',
+      'jobId' : 'IT_PROG', 
     }
+    fetch('http://localhost:8099/yd/emps', {
+      method : 'post',
+      // @RequestBody
+      headers : {
+        'Content-type' : 'application/json',
+      },
+      body : JSON.stringify(insertDta),
+    })
+    .then(res => res.json())
+    .then(result => {
+      console.log("==== 등록");
+      console.log(result);
+    })
+    .catch(err => console.log(err));
+
+    // 수정
+    let updateDta = {
+    "firstName": "Steven",
+    "lastName": "King1234",
+    "email": "SKING",
+    "phoneNumber": "515.123.4567",
+    "hireDate": "2013-06-16T15:00:00.000+00:00",
+    "jobId": "AD_PRES",
+    "salary": 24000.0,
+    "commissionPct": 0.0,
+    "managerId": 0,
+    "departmentId": 90
+}
+    fetch('http://localhost:8099/yd/emps/100', {
+      method : 'put',
+      // @RequestBody
+      headers : {
+        'Content-type' : 'application/json',
+      },
+      body : JSON.stringify(updateDta),
+    })
+    .then(res => res.json())
+    .then(result => {
+      console.log("==== 수정");
+      console.log(result);
+    })
+    .catch(err => console.log(err));
+    // 삭제
+    fetch('http://localhost:8099/yd/emps/225',{
+      method : 'delete',
+    })
+    .then(res => res.json())
+    .then(result => {
+      console.log('===== 단건삭제');
+      console.log(result);
+    })
+    .catch(err => console.log(err));
   </script>
 </body>
 </html>

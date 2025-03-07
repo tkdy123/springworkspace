@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.app.emp.service.EmpVO;
 
+
 @Controller
 public class TestEmpController {
 	
@@ -16,5 +17,4 @@ public class TestEmpController {
 		String result = "Result : " + empVO.getEmployeeId();
 		return result;
 	}
-	
 }

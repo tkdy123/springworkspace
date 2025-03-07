@@ -20,48 +20,49 @@ public class SpringSecurityConfig {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	/*
+	@Bean // 메모리상 인증정보 등록 => 테스트 전용 방식
+	InMemoryUserDetailsManager inMemoryUserDetailsService() {
+		UserDetails user = User.builder()
+								.username("user1")
+								.password(passwordEncoder().encode("1234"))
+							   .roles("USER") // ROLE_USER
+							 //.authorities("ROLE_USER")
+							   .build();	
+							   
+		UserDetails admin = User.builder()
+				   				.username("admin1")
+				   		.password(passwordEncoder().encode("1234"))
+				   				//.roles("ADMIN") // ROLE_ADMIN
+				   				  .authorities("ROLE_ADMIN","ROLE_USER")
+				   				.build();
+		
+		return new InMemoryUserDetailsManager(user, admin);
+	}
+	*/
+	// 인증 및 인가 : Lambda DSL
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http //	보호된 리소스 URI에 접근할 수 있는 권한을 설정
+			.authorizeHttpRequests((authrize)  
+				-> authrize
+					.requestMatchers("/", "/all").permitAll()	// 전체 접근 허용
+					.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") // USER, ADMIN이라는 롤을	가진 사용자만 접근 허용
+					.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // ROLE_ADMIN이라는 롤을	가진 사용자만 접근 허용
+					.anyRequest().authenticated() // 권한 상관없이 인증받은 사용자만 접근 허용
+			)
+			.formLogin(formlogin -> formlogin
+					.defaultSuccessUrl("/all"))
+			.logout(logout -> logout
+					.logoutSuccessUrl("/all")
+					.invalidateHttpSession(true));
+		 http.csrf(csrf -> csrf.disable());
+		return http.build();
+	}
 	
-//	@Bean // 메모리상 인증정보 등록 => 테스트 전용 방식
-//	InMemoryUserDetailsManager inMemoryUserDetailsService() {
-//		UserDetails user = User.builder()
-//				               .username("user1")
-//				               .password(passwordEncoder().encode("1234"))
-//				               .roles("USER") // ROLE_USER
-//				               //.authorities("ROLE_USER")
-//				               .build();
-//		
-//		UserDetails admin = User.builder()
-//	               .username("admin1")
-//	               .password(passwordEncoder().encode("1234"))
-//	               //.roles("ADMIN") // ROLE_ADMIN
-//	               .authorities("ROLE_ADMIN", "ROLE_USER")
-//	               .build();
-//		
-//		return new InMemoryUserDetailsManager(user, admin);
-//	}
-//	
-//	// 인증 및 인가 : Lambda DSL
-//	@Bean
-//	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//	http // 보호된 리소스 URI에 접근할 수 있는 권한을 설정
-//	.authorizeHttpRequests((authrize)
-//	-> authrize
-//	.requestMatchers("/", "/all").permitAll() // 전체 접근 허용
-//	.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") // USER, ADMIN이라는 롤을 가진 사용자만 접
-//	.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // ROLE_ADMIN이라는 롤을 가진 사용자만 접
-//	.anyRequest().authenticated() // 권한 상관없이 인증받은 사용자만 접근 허용
-//	)
-//	.formLogin(formlogin -> formlogin
-//	.defaultSuccessUrl("/all"))
-//	.logout(logout -> logout
-//	.logoutSuccessUrl("/all")
-//	.invalidateHttpSession(true));
-//	return http.build();
-//	}
-//	
-//	@Bean
-//	 public WebSecurityCustomizer webSecurityCustomizer() {
-//	 return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/css/**"); // 예외처리하고 싶은 url
-//	 }
 	
+ @Bean 
+ WebSecurityCustomizer webSecurityCustomizer() {
+	 return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/css/**"); // 예외처리하고 싶은 url
+ }
 }

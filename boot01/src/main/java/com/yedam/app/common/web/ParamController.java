@@ -16,43 +16,42 @@ import com.yedam.app.emp.service.EmpVO;
 @Controller
 public class ParamController {
 	// Content-type : application/x-www-form-urlencoded
-	// QueryString(질의문자열) : key=value&key=value&...
+	// QueryString(질의문자열) : key=value&key=value&....
 	// Method : 상관없음
 	
 	// QueryString => 커맨드 객체 (어노테이션 X) : 객체
 	@RequestMapping(path="comobj",
-	   method= {RequestMethod.GET, RequestMethod.POST})
+	  method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String commandObject(EmpVO empVO) {
 		String result = "";
-		 result += "Path : /comobj \n";
-		 result += "\t employee_id : " + empVO.getEmployeeId();
-		 result += "\t last_name : " + empVO.getLastName();
-		 return result;
+		result += "Path : /comobj \n";
+		result += "\t employee_id : " + empVO.getEmployeeId();
+		result += "\t last_name : " + empVO.getLastName();
+		return result;
 	}
 	
 	// QueryString => @RequestParam : 기본타입, 단일값
 	@RequestMapping(path="reqparm",
-			   method= {RequestMethod.GET, RequestMethod.POST})
+			method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String requestParam
-	(@RequestParam Integer employeeId, // 필수
-			       String  lastName,   // 생략가능
-     @RequestParam(name="message",
-                   defaultValue="No message",
-                   required = true) String msg) {
+	(@RequestParam Integer employeeId,  // 필수
+				   String lastName,     // 생략가능
+	@RequestParam(name="message",
+				  defaultValue="No message",
+				  required = true) String msg) {
 		String result = "";
-		 result += "Path : /reqparm \n";
-		 result += "\t employee_id : " + employeeId;
-		 result += "\t last_name : " + lastName;
-		 result += "\t message : " + msg;
-		 return result;
+		result += "path : /reqparm \n";
+		result += "\t employee_id : " + employeeId;
+		result += "\t last_name : " + lastName;
+		result += "\t message : " + msg;
+		return result;
 	}
-	
 	
 	// @PathVariable : 경로에 값을 포함하는 방식, 단일 값
 	// Content-type도 상관없음
-    // Method도 상관없음
+	// Method도 상관없음
 	@RequestMapping("path/{id}") // path/Hong, path/1234
 	@ResponseBody
 	public String pathVariable(@PathVariable String id) {
@@ -61,34 +60,32 @@ public class ParamController {
 		result += "\t id : " + id;
 		return result;
 	}
-	
 	// Content-type : application/json
 	// JSON 포맷 => @RequestBody 배열 or 객체
 	// Method : POST, PUT
-	// RequestBody는 Single Object만 처리가능
+	// @RequestBody는 Single Object만 처리가능
 	// JSON => 객체
 	@PostMapping("resbody")
 	@ResponseBody
 	public String requestBody(@RequestBody EmpVO empVO) {
-		String result = "Path : /resbody \n";
-		 result += "\t employee_id : " + empVO.getEmployeeId();
-		 result += "\t last_name : " + empVO.getLastName();
-		 return result;
-	}
-	
+		String result = "path : /resbody \n";
+		result += "\t employee_id : " + empVO.getEmployeeId();
+		result += "\t last_name : " + empVO.getLastName();		
+		return result;
+	}	
 	// JSON => 배열
 	@PostMapping("resbodyList")
 	@ResponseBody
-	public String requestBodyList(@RequestBody List<EmpVO> list) {
-		String result = "Path : /resbodyList \n";
+	public String requestBodyList
+				(@RequestBody List<EmpVO> list) {
+		String result = "path : /resbodyList \n";
 		for(EmpVO empVO : list) {
-			 result += "\t employee_id : " + empVO.getEmployeeId();
-			 result += "\t last_name : " + empVO.getLastName();
-			 result += "\n";
+			result += "\t employee_id : " + empVO.getEmployeeId();
+			result += "\t last_name : " + empVO.getLastName();
+			result += "\n";
 		}
 		return result;
 	}
-	
 	
 	
 }

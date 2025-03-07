@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
-<head>                              
+<html xmlns:th="https://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}"
+	  layout:fragment="content">
+<!--/* common/layouts/default_layout */-->
+<head>
 <meta charset="UTF-8">
-<meta name="contextPath" th:value="${contextPath}">
 <title>사원관리</title>
 <style>
-table, th, td {
-	border: 1px solid black;
-}
+	table, th, td {
+		border : 1px solid black;	
+	}
 </style>
 </head>
 <body>
@@ -27,35 +30,33 @@ table, th, td {
 				<th:block th:each="info, sts : ${emps}">
 					<!--/* 반복하고자 하는 태그 */-->
 					<tr
-						th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}'|">
-						<!-- onclick 쓸 때 : th:onclick="|location.href='@{경로(쿼리스트링)}'|" -->
-						<td>[[ ${sts.count} ]]</td>
+						th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}';|">
+						<td>[[ ${sts.count}]]</td>
 						<td th:text="${info.employeeId}"></td>
 						<td th:text="${info.lastName}"></td>
-						<!--/* <td>[[ ${info.hireDate} ]]</td> */-->
+						<!--/* <td>[[${info.hireDate}]]</td> */-->
 						<td>[[${#dates.format(info.hireDate, "yyyy년MM월dd일")}]]</td>
-						<td>[[ ${info.jobId} ]]</td>
+						<td>[[${info.jobId}]]</td>
 					</tr>
 				</th:block>
 			</tbody>
 		</table>
 	</div>
 	<script>
-	
-	    const context = document.querySelector('meta[name="contextPath"]')
-	                            .getAttribute('value');
-	
-		document.querySelectorAll('tbody > tr').forEach(function(trTag){
-			trTag.addEventListener('click', moveInfoPage);
-		});
+		const context = document.querySelector('meta[name="contextPath"]')
+														.getAttribute('value');
+
+		document.querySelectorAll('tbody > tr')
+						.forEach(function(trTag){
+							trTag.addEventListener('click', moveInfoPage);
+						});
 		
 		function moveInfoPage(event){
-			let selectedTr = event.currentTarget;
+			let selectedTr = event.currentTarget;			
 			let eid = selectedTr.children[1].textContent;
-			let url = context + '/empInfo?employeeId='+ eid;
-			location.href=url;
+			let url = context + '/empInfo?employeeId=' + eid;
+			//location.href = url;
 		}
-		
 	</script>
 </body>
 </html>

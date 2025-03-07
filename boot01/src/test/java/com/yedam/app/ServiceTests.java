@@ -10,7 +10,7 @@ import com.yedam.app.rest.service.PostService;
 
 @SpringBootTest
 public class ServiceTests {
-	//@Autowired
+	@Autowired
 	private AaaService aaaService;
 	
 	//@Test
@@ -26,6 +26,7 @@ public class ServiceTests {
 		postService.findOneById(1);
 	}
 	
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
@@ -34,9 +35,10 @@ public class ServiceTests {
 		String password = "1234";
 		
 		String enPwd = passwordEncoder.encode(password);
-		System.out.println("enPwd : " + enPwd);
+		System.out.println("enPwd : " + enPwd);	
 		
 		boolean matchResult = passwordEncoder.matches(password, enPwd);
 		System.out.println("matchResult : " + matchResult);
 	}
+	
 }
